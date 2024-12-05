@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "420715426911",
+    "project_id": "mitete-vbgftj",
+    "storage_bucket": "mitete-vbgftj.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420715426911:android:4b41f61d77975161b817ea",
+        "android_client_info": {
+          "package_name": "mitete.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAy3icG3UQsRRvLcoq_9djnVyoaaKwyGRM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
