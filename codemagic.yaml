@@ -18,7 +18,7 @@ workflows:
           pod install
       - name: Build IPA
         script: |
-          xcode-project build-ipa --workspace "ios/Runner.xcworkspace" --scheme "Runner"
+          xcode-project build-ipa --workspace "ios/Runner.xcworkspace" --scheme "Runner" --export-options-plist "ios/export_options.plist"
     artifacts:
       - build/ios/**/*.ipa  # 生成されたIPAファイルをCodemagicのArtifactsセクションに保存
 
