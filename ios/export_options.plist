@@ -9,7 +9,7 @@
     <key>provisioningProfiles</key>
     <dict>
         <key>mitete.app</key>
-        <string>mitete_App_Store_Profile_20250105</string>
+        <string>mitete_App_Store_Profile_20250107</string>
         <key>mitete.app.ImageNotification</key>
         <string>ImageNotification_App_Store_Profile</string>
     </dict>
