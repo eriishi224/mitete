@@ -9,6 +9,9 @@ workflows:
           - 'mitete_App_Store_Profile_20250105.mobileprovision'  
           - 'ImageNotification_App_Store_Profile.mobileprovision'  
     scripts:
+      - name: Install Flutter dependencies
+        script: |
+          flutter pub get
       - name: Install CocoaPods
         script: |
           cd ios
@@ -17,4 +20,5 @@ workflows:
         script: |
           xcode-project build-ipa --workspace "ios/Runner.xcworkspace" --scheme "Runner"
     artifacts:
-      - build/ios/**/*.ipa
+      - build/ios/**/*.ipa  # 生成されたIPAファイルをCodemagicのArtifactsセクションに保存
+
