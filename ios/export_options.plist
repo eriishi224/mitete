@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>method</key>
+    <string>app-store</string> <!-- App Storeへの配布の場合 -->
+    <key>teamID</key>
+    <string>M9QCS2WV6F</string> <!-- Apple DeveloperのチームID -->
+    <key>provisioningProfiles</key>
+    <dict>
+        <key>mitete.app</key> <!-- バンドルID -->
+        <string>mitete_App_Store_Profile_20250105</string> <!-- プロビジョニングプロファイル名 -->
+    </dict>
+    <key>signingCertificate</key>
+    <string>Apple Distribution</string>
+    <key>signingStyle</key>
+    <string>manual</string>
+    <key>stripSwiftSymbols</key>
+    <true/>
+    <key>uploadSymbols</key>
+    <true/>
+    <key>compileBitcode</key>
+    <true/>
+</dict>
+</plist>
