@@ -9,9 +9,12 @@ workflows:
           - 'mitete_App_Store_Profile_20250105.mobileprovision'  
           - 'ImageNotification_App_Store_Profile.mobileprovision'  
     scripts:
-      - name: Build IPA  # アプリをビルドしてIPAファイルを生成
+      - name: Install CocoaPods
+        script: |
+          cd ios
+          pod install
+      - name: Build IPA
         script: |
           xcode-project build-ipa --workspace "ios/Runner.xcworkspace" --scheme "Runner"
     artifacts:
-      - build/ios/**/*.ipa  # 生成されたIPAファイルをCodemagicのArtifactsセクションに保存
-
+      - build/ios/**/*.ipa
