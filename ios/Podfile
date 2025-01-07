@@ -1,5 +1,5 @@
 $FirebaseAnalyticsWithoutAdIdSupport = true
-platform :ios, '12.0'
+platform :ios, '12.0' # iOS 12.0 に設定
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -44,22 +44,11 @@ end
 
 post_install do |installer|
   installer.pods_project.targets.each do |target|
-    # Flutter の追加設定
     flutter_additional_ios_build_settings(target)
 
     target.build_configurations.each do |config|
-      # Runner ターゲット用の設定
-      if target.name == 'Runner'
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
-      end
-
-      # ImageNotification ターゲット用の設定
-      if target.name == 'ImageNotification'
-        config.build_settings['CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER'] = 'NO'
-        config.build_settings['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'] = 'YES'
-        config.build_settings['OTHER_LDFLAGS'] = '$(inherited)'
-        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
-      end
+      # iOS 12.0 を設定
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
     end
   end
 end
