@@ -4,10 +4,11 @@ workflows:
     environment:
       xcode: latest  
       cocoapods: default  
+      flutter: stable  # Flutterのバージョンを指定
       ios_signing:
         provisioning_profiles:
-          - 'mitete_App_Store_Profile_20250107'  
-          - 'ImageNotification_App_Store_Profile'  
+          mitete.app: mitete_App_Store_Profile_20250107  # プロビジョニングプロファイルの関連付け
+          mitete.app.ImageNotification: ImageNotification_App_Store_Profile  
     scripts:
       - name: Install Flutter dependencies
         script: |
@@ -21,4 +22,3 @@ workflows:
           xcode-project build-ipa --workspace "ios/Runner.xcworkspace" --scheme "Runner" --export-options-plist "ios/export_options.plist"
     artifacts:
       - build/ios/**/*.ipa  # 生成されたIPAファイルをCodemagicのArtifactsセクションに保存
-
