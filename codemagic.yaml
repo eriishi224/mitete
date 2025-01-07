@@ -8,8 +8,6 @@ workflows:
         provisioning_profiles:
           - 'mitete_App_Store_Profile_20250105.mobileprovision'  
           - 'ImageNotification_App_Store_Profile.mobileprovision'  
-        certificate: '証明書.p12'  
-        certificate_password: 'Wada0224'  
     scripts:
       - name: Build IPA  # アプリをビルドしてIPAファイルを生成
         script: |
@@ -17,6 +15,8 @@ workflows:
     artifacts:
       - build/ios/**/*.ipa  # 生成されたIPAファイルをCodemagicのArtifactsセクションに保存
     publishing:
-      app_store_connect:  # 自動でApp Store Connectにアップロードする設定
-        apple_id: "wadasan224@gmail.com"  # Apple ID
-        app_specific_password: "famy-qzeu-gope-tape"  # App-specific password
+      app_store_connect:
+        api_key:
+          key_id: $APP_STORE_CONNECT_KEY_ID
+          issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+          private_key: encrypt:$APP_STORE_CONNECT_PRIVATE_KEY
