@@ -4,11 +4,10 @@ workflows:
     environment:
       xcode: latest  
       cocoapods: default  
-      flutter: stable  # Flutterのバージョンを指定
       ios_signing:
         provisioning_profiles:
-          mitete.app: mitete_App_Store_Profile_20250107  # プロビジョニングプロファイルの関連付け
-          mitete.app.ImageNotification: ImageNotification_App_Store_Profile  
+          - 'mitete_App_Store_Profile_20250107'  
+          - 'ImageNotification_App_Store_Profile'  
     scripts:
       - name: Install Flutter dependencies
         script: |
