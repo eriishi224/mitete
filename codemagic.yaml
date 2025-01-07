@@ -6,8 +6,8 @@ workflows:
       cocoapods: default  
       ios_signing:
         provisioning_profiles:
-          - 'mitete_App_Store_Profile_20250107.mobileprovision'  
-          - 'ImageNotification_App_Store_Profile.mobileprovision'  
+          - 'mitete_App_Store_Profile_20250107'  
+          - 'ImageNotification_App_Store_Profile'  
     scripts:
       - name: Install Flutter dependencies
         script: |
