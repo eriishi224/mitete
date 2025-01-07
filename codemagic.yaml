@@ -19,4 +19,4 @@ workflows:
         api_key:
           key_id: $APP_STORE_CONNECT_KEY_ID
           issuer_id: $APP_STORE_CONNECT_ISSUER_ID
-          private_key: encrypt:$APP_STORE_CONNECT_PRIVATE_KEY
+          private_key: $APP_STORE_CONNECT_PRIVATE_KEY
