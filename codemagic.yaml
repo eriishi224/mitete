@@ -11,7 +11,7 @@ workflows:
     scripts:
       - name: Build IPA  # アプリをビルドしてIPAファイルを生成
         script: |
-          xcode-project build-ipa --scheme "Runner"
+          xcode-project build-ipa --workspace "Runner.xcworkspace" --scheme "Runner"
     artifacts:
       - build/ios/**/*.ipa  # 生成されたIPAファイルをCodemagicのArtifactsセクションに保存
 
