@@ -6,7 +6,7 @@ workflows:
       cocoapods: default  
       ios_signing:
         provisioning_profiles:
-          - 'mitete_App_Store_Profile_20250107'  
+          - 'mitete_App_Store_Profile_20250108'  
           - 'ImageNotification_App_Store_Profile'  
     scripts:
       - name: Install Flutter dependencies
@@ -20,4 +20,4 @@ workflows:
         script: |
           xcode-project build-ipa --workspace "ios/Runner.xcworkspace" --scheme "Runner" --export-options-plist "ios/export_options.plist"
     artifacts:
-      - build/ios/**/*.ipa  # 生成されたIPAファイルをCodemagicのArtifactsセクションに保存
+      - build/ios/**/*.ipa  
