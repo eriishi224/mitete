@@ -74,203 +74,156 @@ class _SelectCitiesWidgetState extends State<SelectCitiesWidget> {
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
                     child: Container(
                       width: double.infinity,
                       height: 40.0,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.0),
                       ),
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
-                        child: Text(
-                          '市区町村選択',
-                          style: FlutterFlowTheme.of(context)
-                              .headlineSmall
-                              .override(
-                                fontFamily: 'Outfit',
-                                color: Color(0xFF14181B),
-                                fontSize: 24.0,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.w500,
-                              ),
+                      child: Align(
+                        alignment: AlignmentDirectional(0.0, 0.0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 10.0),
+                          child: Text(
+                            '市区町村選択',
+                            style: FlutterFlowTheme.of(context)
+                                .headlineSmall
+                                .override(
+                                  fontFamily: 'Outfit',
+                                  color: Color(0xFF14181B),
+                                  fontSize: 24.0,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: FutureBuilder<ApiCallResponse>(
-                            future: GetCitiesCall.call(
-                              selectPrefCode: FFAppState().selectPrefCode,
+                  Expanded(
+                    child: FutureBuilder<ApiCallResponse>(
+                      future: GetCitiesCall.call(
+                        selectPrefCode: FFAppState().selectPrefCode,
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: CircularProgressIndicator(
+                                valueColor: AlwaysStoppedAnimation<Color>(
+                                  FlutterFlowTheme.of(context).primary,
+                                ),
+                              ),
                             ),
-                            builder: (context, snapshot) {
-                              // Customize what your widget looks like when it's loading.
-                              if (!snapshot.hasData) {
-                                return Center(
-                                  child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
-                                    child: CircularProgressIndicator(
-                                      valueColor: AlwaysStoppedAnimation<Color>(
-                                        FlutterFlowTheme.of(context).primary,
+                          );
+                        }
+                        final listViewGetCitiesResponse = snapshot.data!;
+
+                        return Builder(
+                          builder: (context) {
+                            final cities = GetCitiesCall.citiesName(
+                                  listViewGetCitiesResponse.jsonBody,
+                                )?.toList() ??
+                                [];
+
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              primary: false,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: cities.length,
+                              itemBuilder: (context, citiesIndex) {
+                                final citiesItem = cities[citiesIndex];
+                                return Container(
+                                  width: double.infinity,
+                                  height: 35.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Theme(
+                                        data: ThemeData(
+                                          checkboxTheme: CheckboxThemeData(
+                                            visualDensity:
+                                                VisualDensity.compact,
+                                            materialTapTargetSize:
+                                                MaterialTapTargetSize
+                                                    .shrinkWrap,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(4.0),
+                                            ),
+                                          ),
+                                          unselectedWidgetColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .alternate,
+                                        ),
+                                        child: Checkbox(
+                                          value: _model.checkboxValueMap[
+                                              citiesItem] ??= FFAppState()
+                                                  .selectCities
+                                                  .contains(citiesItem) ==
+                                              true,
+                                          onChanged: (newValue) async {
+                                            safeSetState(() =>
+                                                _model.checkboxValueMap[
+                                                    citiesItem] = newValue!);
+                                            if (newValue!) {
+                                              logFirebaseEvent(
+                                                  'SELECT_CITIES_Checkbox_qp6j2un6_ON_TOGGL');
+                                              logFirebaseEvent(
+                                                  'Checkbox_update_app_state');
+                                              FFAppState().addToSelectCities(
+                                                  citiesItem);
+                                              safeSetState(() {});
+                                            } else {
+                                              logFirebaseEvent(
+                                                  'SELECT_CITIES_Checkbox_qp6j2un6_ON_TOGGL');
+                                              logFirebaseEvent(
+                                                  'Checkbox_update_app_state');
+                                              FFAppState()
+                                                  .removeFromSelectCities(
+                                                      citiesItem);
+                                              safeSetState(() {});
+                                            }
+                                          },
+                                          side: BorderSide(
+                                            width: 2,
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                          ),
+                                          activeColor:
+                                              FlutterFlowTheme.of(context)
+                                                  .primary,
+                                          checkColor:
+                                              FlutterFlowTheme.of(context).info,
+                                        ),
                                       ),
-                                    ),
+                                      Text(
+                                        citiesItem,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Noto Sans JP',
+                                              letterSpacing: 0.0,
+                                            ),
+                                      ),
+                                    ],
                                   ),
                                 );
-                              }
-                              final listViewGetCitiesResponse = snapshot.data!;
-
-                              return Builder(
-                                builder: (context) {
-                                  final cities = GetCitiesCall.citiesName(
-                                        listViewGetCitiesResponse.jsonBody,
-                                      )?.toList() ??
-                                      [];
-
-                                  return ListView.builder(
-                                    padding: EdgeInsets.zero,
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: cities.length,
-                                    itemBuilder: (context, citiesIndex) {
-                                      final citiesItem = cities[citiesIndex];
-                                      return Container(
-                                        width: double.infinity,
-                                        height: 35.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 1.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Theme(
-                                                    data: ThemeData(
-                                                      checkboxTheme:
-                                                          CheckboxThemeData(
-                                                        visualDensity:
-                                                            VisualDensity
-                                                                .compact,
-                                                        materialTapTargetSize:
-                                                            MaterialTapTargetSize
-                                                                .shrinkWrap,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      4.0),
-                                                        ),
-                                                      ),
-                                                      unselectedWidgetColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                    ),
-                                                    child: Checkbox(
-                                                      value: _model
-                                                              .checkboxValueMap[
-                                                          citiesItem] ??= FFAppState()
-                                                              .selectCities
-                                                              .contains(
-                                                                  citiesItem) ==
-                                                          true,
-                                                      onChanged:
-                                                          (newValue) async {
-                                                        safeSetState(() =>
-                                                            _model.checkboxValueMap[
-                                                                    citiesItem] =
-                                                                newValue!);
-                                                        if (newValue!) {
-                                                          logFirebaseEvent(
-                                                              'SELECT_CITIES_Checkbox_qp6j2un6_ON_TOGGL');
-                                                          logFirebaseEvent(
-                                                              'Checkbox_update_app_state');
-                                                          FFAppState()
-                                                              .addToSelectCities(
-                                                                  citiesItem);
-                                                          safeSetState(() {});
-                                                        } else {
-                                                          logFirebaseEvent(
-                                                              'SELECT_CITIES_Checkbox_qp6j2un6_ON_TOGGL');
-                                                          logFirebaseEvent(
-                                                              'Checkbox_update_app_state');
-                                                          FFAppState()
-                                                              .removeFromSelectCities(
-                                                                  citiesItem);
-                                                          safeSetState(() {});
-                                                        }
-                                                      },
-                                                      side: BorderSide(
-                                                        width: 2,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
-                                                      ),
-                                                      activeColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
-                                                      checkColor:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .info,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    citiesItem,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Noto Sans JP',
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 10.0, 0.0),
-                                                child: Icon(
-                                                  Icons.arrow_forward_ios,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  size: 18.0,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  );
-                                },
-                              );
-                            },
-                          ),
-                        ),
-                      ],
+                              },
+                            );
+                          },
+                        );
+                      },
                     ),
                   ),
                 ],
