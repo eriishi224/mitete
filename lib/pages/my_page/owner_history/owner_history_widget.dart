@@ -15,8 +15,8 @@ import 'package:provider/provider.dart';
 import 'owner_history_model.dart';
 export 'owner_history_model.dart';
 
+/// up
 class OwnerHistoryWidget extends StatefulWidget {
-  /// up
   const OwnerHistoryWidget({super.key});
 
   @override

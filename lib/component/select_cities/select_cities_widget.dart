@@ -58,7 +58,7 @@ class _SelectCitiesWidgetState extends State<SelectCitiesWidget> {
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: FlutterFlowTheme.of(context).primaryBackground,
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
@@ -144,7 +144,7 @@ class _SelectCitiesWidgetState extends State<SelectCitiesWidget> {
                                   height: 35.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
+                                        .primaryBackground,
                                   ),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -235,34 +235,36 @@ class _SelectCitiesWidgetState extends State<SelectCitiesWidget> {
                 width: double.infinity,
                 height: 60.0,
                 decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
+                  color: FlutterFlowTheme.of(context).primaryBackground,
                 ),
-                child: Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(30.0, 0.0, 30.0, 10.0),
-                  child: FFButtonWidget(
-                    onPressed: () async {
-                      logFirebaseEvent('SELECT_CITIES_COMP_OK_BTN_ON_TAP');
-                      logFirebaseEvent('Button_navigate_back');
-                      context.safePop();
-                    },
-                    text: 'OK',
-                    options: FFButtonOptions(
-                      height: 40.0,
-                      padding: EdgeInsets.all(24.0),
-                      iconPadding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                      color: FlutterFlowTheme.of(context).primary,
-                      textStyle:
-                          FlutterFlowTheme.of(context).titleSmall.override(
-                                fontFamily: 'Noto Sans JP',
-                                color: Colors.white,
-                                letterSpacing: 0.0,
-                              ),
-                      elevation: 0.0,
-                      borderRadius: BorderRadius.circular(24.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FFButtonWidget(
+                      onPressed: () {
+                        print('Button pressed ...');
+                      },
+                      text: 'OK',
+                      options: FFButtonOptions(
+                        width: 300.0,
+                        height: 50.0,
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 0.0, 16.0, 0.0),
+                        iconPadding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  fontFamily: 'Noto Sans JP',
+                                  color: Colors.white,
+                                  letterSpacing: 0.0,
+                                ),
+                        elevation: 0.0,
+                        borderRadius: BorderRadius.circular(24.0),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
               ),
             ),
